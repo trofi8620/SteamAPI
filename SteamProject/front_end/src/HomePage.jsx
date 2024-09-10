@@ -9,7 +9,7 @@ function HomePage() {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
-    const hasGames = false;
+    var hasGames = false;
 
     useEffect(() => {
         const fetchData = async () => {
