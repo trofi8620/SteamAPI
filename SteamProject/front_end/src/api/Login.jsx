@@ -2,6 +2,7 @@ import {React, useState, useRef} from "react"
 import { useNavigate } from "react-router-dom";
 export let ID;
 export let apiData;
+export let apiGame;
 
 function Login() {
     const [ID, setID] = useState("");
@@ -11,10 +12,11 @@ function Login() {
         
         e.preventDefault();
         try {
+            
             const response = await fetch(`http://localhost:3000/steam-profile/${ID}`);
             const data = await response.json();
             if (response.ok) {
-                console.log(data);
+                console.log('Data responded okay');
                 apiData = `http://localhost:3000/steam-profile/${ID}`;
                 navigate('/HomePage');
                 
@@ -27,6 +29,21 @@ function Login() {
             
             console.error('Error:', error);
         }
+
+        try{
+
+            const response = await fetch(`http://localhost:3000/steam-profile/${ID}/games`);
+            const games = await response.json();
+            if(response.ok){
+                console.log('Games responded okay');
+                apiGame = `http://localhost:3000/steam-profile/${ID}/games`;
+            }
+            else{
+                console.log(games.error);
+            }
+
+        }
+        catch{error => console.log(`Error : ${error}`)}
     };
 
     return (
